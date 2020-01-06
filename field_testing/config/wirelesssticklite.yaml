@@ -1,0 +1,67 @@
+esphome:
+  name: wirelesssticklite
+  platform: ESP32
+  board: heltec_wireless_stick
+
+wifi:
+  ssid: !secret home_wifi_ssid
+  password: !secret home_wifi_password
+  
+  ap:
+    ssid: !secret fallback_wifi_ssid
+    password: !secret fallback_wifi_password
+    
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: !secret api_password
+
+ota:
+  password: !secret ota_password
+
+sensor:
+ - platform: dht
+   model: dht11
+   pin: 9
+   temperature:
+     name: "Remote Temp"
+     id: temp
+     filters:
+       - lambda: return x * (9.0/5.0) + 32.0;
+     unit_of_measurement: "°F"
+   humidity:
+     name: "Remote Humidity"
+     id: humid
+   update_interval: 2min
+
+#deep_sleep:
+#  run_duration: 2min
+#  sleep_duration: 5min
+
+#time:
+#  - platform: sntp
+#    id: my_time
+#
+#font:
+# - file: "Roboto-Regular.ttf"
+#   id: Roboto
+#   size: 12
+#
+#i2c:
+#  sda: 21
+#  scl: 22
+#  scan: True
+#
+#display:
+# - platform: ssd1306_i2c
+#   model: "SSD1306 128x64"
+#   lambda: |-
+#    it.printf(0, 5, id(Roboto), "Remote Sense Unit");
+#    it.line(0, 15, 128, 15);
+#    it.printf(0, 25, id(Roboto), "Temp %.1f F", id(temp).state);
+#    it.printf(0, 40, id(Roboto), "Humidity %.0f %%", id(humid).state);
+#    it.strftime(0, 50, id(Roboto), "%H:%M:%S %m.%d.%Y", id(my_time).now());

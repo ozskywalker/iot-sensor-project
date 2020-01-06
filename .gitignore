@@ -1,0 +1,22 @@
+# Secrets YAML files
+*/secrets.yaml
+*/*secrets.yaml
+
+# Python virtualenv
+*/venv/
+venv/
+
+# Temporary build folders
+field_testing/config/*/
+
+# Stateful folders
+field_testing/homeassistant-config/
+
+# ESPHome Gitignore defaults
+**/.pioenvs/
+**/.piolibdeps/
+**/lib/
+**/src/
+**/platformio.ini
+/.esphome/
+**/.esphome/

@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+    homeassistant:
+        container_name: home-assistant
+        image: homeassistant/home-assistant:stable
+        volumes:
+            - ./homeassistant-config:/config
+        environment:
+            TZ: America/New_York
+        restart: always
+        ports:
+            - 8123:8123
+
+    #
+    # Sadly, esphome can't work on Mac because we can't pass devices
+    # into the macOS hypervisor
+    #
+    # esphome:
+    #     container_name: esphome
+    #     image: esphome/esphome
+    #     volumes:
+    #         - ./esphome-config:/config
+    #     restart: always
+    #     ports:
+    #         - 6052:6052
+    #     devices:
+    #         - "/dev/cu.SLAB_USBtoUART:/dev/cu.SLAB_USBtoUART"
